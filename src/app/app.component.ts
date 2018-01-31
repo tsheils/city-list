@@ -15,11 +15,16 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.cityService.city$.subscribe(cities => {
       this.cities = [];
+ /*     [...cities.values()].forEach(drugs => {
+        console.log(drugs);
+      });*/
       for (const key of Array.from(cities.keys())) {
         const capKey: string = this.capitalize(key);
         this.cities.push({city: capKey, count: cities.get(key)});
       }
-      this.cities.sort((a, b) => {
+      // one liner to replace previous function
+      this.cities.sort((a, b) => b.count - a.count);
+      /*this.cities.sort((a, b) => {
         if (a.count > b.count) {
           return -1;
         } else if (a.count < b.count) {
@@ -27,7 +32,7 @@ export class AppComponent implements OnInit {
         } else {
           return 0;
         }
-      });
+      });*/
     });
     }
 
